@@ -11,20 +11,14 @@ using namespace std;
 class Solution{
 public:
     int remove_duplicate(int a[],int n){
-        vector<int>b;
-        b.push_back(a[0]);
-        int x=0;
-        for(int i=1;i<n;i++){
-            if(a[i]==b[x]){
-                continue;
-            }
-            b.push_back(a[i]);
-            x++;
-        }
-        for(int i=0;i<b.size();i++){
-            a[i]=b[i];
-        }
-        return b.size();
+       int i=0;
+       for(int j=1;j<n;j++){
+           if(a[j]!=a[i]){
+               a[i+1]=a[j];
+               i++;
+           }
+       }
+       return i+1;
     }
 };
 

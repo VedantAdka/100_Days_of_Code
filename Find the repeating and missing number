@@ -1,0 +1,49 @@
+//{ Driver Code Starts
+#include <bits/stdc++.h>
+
+using namespace std;
+
+// } Driver Code Ends
+class Solution{
+public:
+    vector<int> findTwoElement(vector<int> arr, int n) {
+        vector<int> ans;
+        int m=arr.size();
+        long long Sn=(n*(n+1))/2;
+        long long S2n=(n*(n+1)*(2*n+1))/6;
+        long long S=0;
+        long long S2=0;
+        for(int i=0;i<m;i++){
+            S+=(long long)arr[i];
+            S2+=(long long)arr[i]*(long long)arr[i];
+        }
+        long long val1=S-Sn;
+        long long val2=S2-S2n;
+        val2=val2/val1;
+        long long x=(val1+val2)/2;
+        long long y=(x-val1);
+        ans.push_back((int)x);
+        ans.push_back((int)y);
+        return ans;
+    }
+};
+
+//{ Driver Code Starts.
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int n;
+        cin >> n;
+        vector<int> a(n);
+        for (int i = 0; i < n; i++) {
+            cin >> a[i];
+        }
+        Solution ob;
+        auto ans = ob.findTwoElement(a, n);
+        cout << ans[0] << " " << ans[1] << "\n";
+    }
+    return 0;
+}
+// } Driver Code Ends

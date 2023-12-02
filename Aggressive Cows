@@ -1,0 +1,31 @@
+bool canWePlace(vector<int>arr,int dis,int cow){
+    int cnt=1;
+    int last=arr[0];
+    for(int i=0;i<arr.size();i++){
+        if((arr[i]-last)>=dis){
+            last=arr[i];
+            cnt++;
+        }
+    }
+    if(cnt>=cow){
+        return true;
+    }
+    return false;
+}
+
+int aggressiveCows(vector<int> &stalls, int k)
+{
+    sort(stalls.begin(),stalls.end());
+    int low=1;
+    int high=stalls[stalls.size()-1]-stalls[0];
+    while(low<=high){
+        int mid=(low+high)/2;
+        if(canWePlace(stalls,mid,k)==true){
+            low=mid+1;
+        }
+        else{
+            high=mid-1;
+        }
+    }
+    return high;
+}

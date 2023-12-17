@@ -1,0 +1,18 @@
+bool areRotations(string s1,string s2)
+    {
+        int l1=s1.size();
+        int l2=s2.size();
+        if(l1!=l2){
+            return false;
+        }
+        else{
+            int temp=s1+s1;
+            if(temp.find(s2)!=std::string::npos) {
+                return true;  // If found, strings are rotations of each other
+            } 
+            else 
+            {
+                return false; // If not found, strings are not rotations of each other
+            }
+        }
+    }

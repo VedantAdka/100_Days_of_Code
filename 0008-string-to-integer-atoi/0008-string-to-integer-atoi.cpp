@@ -1,39 +1,38 @@
+#include <iostream>
+
 class Solution {
 public:
-    int myAtoi(string str) {
-        if( str.empty())
-            return 0;
-        int len = str.length(), i=0, sign = 1;
-        
-        while( i<len && str[i] == ' ')
-            i++;
-        
-        if(i==len)
-            return 0;
-        
-        if(str[i] == '-'){
-            sign = 0;
-            i++;
+    int myAtoi(const std::string& str) {
+        int index = 0;
+        return recursiveAtoi(str, index);
+    }
+
+private:
+    int recursiveAtoi(const std::string& str, int& index) {
+        // Skip leading whitespaces
+        while (index < str.length() && str[index] == ' ') {
+            index++;
         }
-        else if(str[i] == '+')
-            i++;
-        
-        long int out = 0;
-        
-        while(str[i] >= '0' && str[i] <= '9'){
-            out = out * 10;
-            if(out <= INT_MIN || out >= INT_MAX)
-                break;
-            out = out + (str[i] - '0');
-            i++;
+
+        // Check for sign
+        int sign = 1;
+        if (index < str.length() && (str[index] == '+' || str[index] == '-')) {
+            sign = (str[index++] == '-') ? -1 : 1;
         }
-        
-        if(sign == 0)
-            out = -1 * out;
-        if(out <= INT_MIN)
-            return INT_MIN;
-        if(out >= INT_MAX)
-            return INT_MAX;
-        return (int)out;
+
+        // Calculate the result
+        long long result = 0;
+        while (index < str.length() && isdigit(str[index])) {
+            result = result * 10 + (str[index++] - '0');
+
+            // Check for overflow
+            if (result * sign > INT_MAX) {
+                return INT_MAX;
+            } else if (result * sign < INT_MIN) {
+                return INT_MIN;
+            }
+        }
+
+        return static_cast<int>(result * sign);
     }
 };

@@ -26,27 +26,30 @@ class GfG
 
 
 class Solution{
-
-	public int perfectSum(int a[],int n, int sum) 
+    static int mod =(int)(Math.pow(10,9)+7);
+	public int perfectSum(int num[],int n, int tar) 
 	{ 
-	    int[] prev=new int[sum+1];
-	    prev[0]=1;
-	    if(a[0]<=sum){
-	        prev[a[0]]=1;
-	    }
-	    for(int i=1;i<n;i++){
-	        int[] curr=new int[sum+1];
-	        curr[0]=1;
-	        for(int s=0;s<=sum;s++){
-	            int notpick=prev[s];
-	            int pick=0;
-	            if(a[i]<=s){
-	                pick=prev[s-a[i]];
-	            }
-	            curr[s]=notpick+pick;
-	        }
-	        prev=curr;
-	    }
-	    return prev[sum];
+
+        int prev[] = new int[tar+1];
+        
+        if(num[0] == 0) prev[0] =2;  // 2 cases -pick and not pick
+        else prev[0] = 1;  // 1 case - not pick
+        
+        if(num[0]!=0 && num[0]<=tar) prev[num[0]] = 1;  // 1 case -pick
+        
+        for(int ind = 1; ind<n; ind++){
+            int cur[]=new int[tar+1];
+            for(int target= 0; target<=tar; target++){
+                int notTaken = prev[target];
+        
+                int taken = 0;
+                    if(num[ind]<=target)
+                        taken = prev[target-num[ind]];
+            
+                cur[target]= (notTaken + taken)%mod;
+            }
+            prev = cur;
+        }
+        return prev[tar];
 	} 
 }

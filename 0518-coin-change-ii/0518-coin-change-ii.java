@@ -5,6 +5,9 @@ class Solution {
             if(T%a[0]==0){
                 prev[T]=1;
             }
+            else{
+                prev[T]=0;
+            }
         }
         for(int ind=1;ind<a.length;ind++){
             int[] curr=new int[amt+1];

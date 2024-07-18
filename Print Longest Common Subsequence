@@ -1,0 +1,75 @@
+//{ Driver Code Starts
+import java.io.*;
+import java.util.*;
+
+class GFG {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int T = Integer.parseInt(br.readLine().trim());
+        while (T-- > 0) {
+            String ss = br.readLine();
+            String[] S = ss.split(" ");
+            String s = S[0];
+            String t = S[1];
+            Solution ob = new Solution();
+            List<String> ans = new ArrayList<String>();
+            ans = ob.all_longest_common_subsequences(s, t);
+            for (int i = 0; i < ans.size(); i++) {
+                System.out.print(ans.get(i) + " ");
+            }
+            System.out.println();
+        }
+    }
+}
+// } Driver Code Ends
+
+
+// User function Template for Java
+
+class Solution {
+    public List<String> all_longest_common_subsequences(String s, String t) {
+       int n=s.length();
+       int m=t.length();
+       int[][] dp=new int[n+1][m+1];
+       for(int i=0;i<n;i++){
+           dp[i][0]=0;
+       }
+       for(int j=0;j<m;j++){
+           dp[0][j]=0;
+       }
+       for(int i=1;i<=n;i++){
+           for(int j=1;j<=m;j++){
+               if(s.charAt(i-1)==t.charAt(j-1)){
+                   dp[i][j]=1+dp[i-1][j-1];
+               }
+               else{
+                   dp[i][j]=Math.max(dp[i-1][j],dp[i][j-1]);
+               }
+           }
+       }
+       int len=dp[n][m];
+       int ind=len-1;
+       StringBuilder str1 = new StringBuilder();
+        for (int i = 0; i < len; i++) {
+            str1.append("$");
+        }
+       int i=n,j=m;
+       while(i>0 && j>0){
+           if(s.charAt(i-1)==t.charAt(j-1)){
+               str1.setCharAt(ind,s.charAt(i-1));
+               ind--;
+               i--;
+               j--;
+           }
+           else if(dp[i-1][j]>dp[i][j-1]){
+               i--;
+           }
+           else{
+               j--;
+           }
+       }
+       List<String> ans1 = new ArrayList<>();
+       ans1.add(str1.toString());
+       return ans1;
+    }
+}

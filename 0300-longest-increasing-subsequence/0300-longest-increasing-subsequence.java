@@ -27,21 +27,35 @@ class Solution {
     public int lengthOfLIS(int[] a) {
         int n=a.length;
         int[][] dp=new int[n+1][n+1];
+        int[] pre=new int[n+1];
+        int[] curr=new int[n+1];
         // for(int[] row: dp){
         //     Arrays.fill(row,-1);
         // }
         // return f(0,-1,a);
         //return f(0,-1,a,dp);
+        // for(int i=n-1;i>=0;i--){
+        //     for(int prev=i-1;prev>=-1;prev--){
+        //         int nottake=0+dp[i+1][prev+1];
+        //         int take=0;
+        //         if(prev==-1 || a[i]>a[prev]){
+        //             take=1+dp[i+1][i+1];
+        //         }
+        //         dp[i][prev+1]=Math.max(nottake,take);
+        //     }
+        // }
+        // return dp[0][-1+1];
         for(int i=n-1;i>=0;i--){
             for(int prev=i-1;prev>=-1;prev--){
-                int nottake=0+dp[i+1][prev+1];
+                int nottake=0+pre[prev+1];
                 int take=0;
                 if(prev==-1 || a[i]>a[prev]){
-                    take=1+dp[i+1][i+1];
+                    take=1+pre[i+1];
                 }
-                dp[i][prev+1]=Math.max(nottake,take);
+                curr[prev+1]=Math.max(nottake,take);
             }
+            pre=curr;
         }
-        return dp[0][-1+1];
+        return pre[-1+1];
     }
 }

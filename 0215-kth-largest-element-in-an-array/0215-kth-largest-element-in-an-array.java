@@ -11,7 +11,7 @@ class Solution {
         //     large.put(maxi,i);
         // }
         // return large.get(large.size());
-        PriorityQueue<Integer> pq=new PriorityQueue<>(k);
+        PriorityQueue<Integer> pq=new PriorityQueue<>();
         for(int num:a){
             pq.offer(num);
             if(pq.size()>k){

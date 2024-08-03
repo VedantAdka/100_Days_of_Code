@@ -1,7 +1,6 @@
 class Solution {
     public int jump(int[] nums) {
-        int res=0;
-        int l=0,r=0;
+        int l=0,r=0,jumps=0;
         while(r<nums.length-1){
             int far=0;
             for(int i=l;i<=r;i++){
@@ -9,8 +8,8 @@ class Solution {
             }
             l=r+1;
             r=far;
-            res++;
+            jumps++;
         }
-        return res;
+        return jumps;
     }
 }

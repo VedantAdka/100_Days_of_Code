@@ -8,6 +8,7 @@ class Solution {
             if(i>maxind) return false;
             maxind=Math.max(maxind,i+nums[i]);
         }
-        return true;
+        if(maxind>=nums.length-1) return true;
+        else return false;
     }
 }
